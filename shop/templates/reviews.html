@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fafafa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #6a4e34;
+        }
+
+        .review-box {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #6a4e34;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5b3f28;
+        }
+
+        .review-list {
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .single-review {
+            background: white;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 0 4px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+
+        .single-review strong {
+            color: #6a4e34;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Customer Reviews</h1>
+
+    <div class="review-box">
+        <form method="POST">
+            {% csrf_token %}
+            <label>Your Name</label>
+            <input type="text" name="name" placeholder="Enter your name" required>
+
+            <label>Your Review</label>
+            <textarea name="review" rows="4" placeholder="Write your review..." required></textarea>
+
+            <button type="submit">Submit Review</button>
+        </form>
+    </div>
+
+    <div class="review-list">
+        <h2 style="text-align:center;">All Reviews</h2>
+
+        {% for r in reviews %}
+            <div class="single-review">
+                <strong>{{ r.name }}</strong><br>
+                <p>{{ r.review }}</p>
+            </div>
+        {% empty %}
+            <p>No reviews yet. Be the first to write one!</p>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
